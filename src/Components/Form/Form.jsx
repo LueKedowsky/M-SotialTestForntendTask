@@ -4,23 +4,21 @@ import User from "./User/User";
 import Password from "./Password/Password";
 import Phone from "./Phone/Phone";
 import Email from "./Email/Email";
+import Separator from "../Separator/Separator";
+import Submit from "./Submit/Submit";
 
 const Form = () => {
-  const clickHandler = (e) => {
-    e.preventDefault();
-    console.log("Submited!");
-  };
   return (
     <div className="form-container">
       <form action="">
         <User />
         <Cities />
+        <Separator />
         <Password />
+        <Separator />
         <Phone />
         <Email />
-        <button type="submit" onClick={clickHandler}>
-          Submit
-        </button>
+        <Submit />
       </form>
     </div>
   );
