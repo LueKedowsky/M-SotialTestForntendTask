@@ -1,6 +1,7 @@
-import React from "react";
+import { memo } from "react";
+import "./Input.scss";
 
-const Input = ({ register, errors, name, itemClass, itemId, label, pattern, isRequired }) => {
+const Input = ({ register, errors, itemName, itemClass, itemId, inputType, label, itemPlaceholder, pattern, patternMessage, isRequired }) => {
   return (
     <div>
       <label htmlFor={itemId}>
@@ -8,17 +9,21 @@ const Input = ({ register, errors, name, itemClass, itemId, label, pattern, isRe
         {isRequired && <label htmlFor={itemId}>*</label>}
       </label>
       <input
-        {...register(name, {
+        {...register(itemName, {
           required: isRequired,
-          pattern: pattern,
+          pattern: {
+            value: pattern,
+            message: patternMessage,
+          },
         })}
-        type="text"
+        type={inputType}
         id={itemId}
-        className={itemClass}
+        className={`${itemClass} form-input`}
+        placeholder={itemPlaceholder}
       />
-      {errors?.name && <div>{errors?.name?.message || "Error"}</div>}
+      <div className="error-message">{errors?.[itemName] && <p>{errors?.[itemName]?.message || "Ошибка"}</p>}</div>
     </div>
   );
 };
 
-export default Input;
+export default memo(Input);

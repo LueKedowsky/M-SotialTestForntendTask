@@ -7,9 +7,7 @@ const Submit = ({ isValid, handleSubmit, errors, reset }) => {
 
   const clickHandler = (data) => {
     setDate(new Date());
-    console.log("Submited!");
     console.log(JSON.stringify(data));
-    console.log(errors);
     reset();
   };
 
