@@ -1,29 +1,20 @@
-import cities from "../../data/cities.json";
+import { Field } from "formik";
 import "./Cities.scss";
+import { sortedCitiesData } from "../../../utils/CitiesData";
 
-const Cities = ({ register, errors, name }) => {
-  const citiesData = JSON.parse(JSON.stringify(cities));
-  const sortedCitiesData = citiesSorter(citiesData, 50000);
-
-  // remove cities with less population then range, move city with highest population on 1st pos and sorting alphabetically rest cities
-  function citiesSorter([...arr], populationRange) {
-    const deleteLessPopulation = arr.filter((item) => item.population > populationRange);
-    const max = deleteLessPopulation.reduce((acc, curr) => (+acc.population > +curr.population ? acc : curr));
-    return deleteLessPopulation.sort((a, b) => (a === max ? -1 : b === max ? 1 : a.city.localeCompare(b.city)));
-  }
-
+const Cities = ({ itemName }) => {
   return (
     <div className="cities-container">
       <label className="cities-label" htmlFor="cities-input">
         Ваш город
       </label>
-      <select {...register(name)} id="cities-input">
+      <Field as="select" name={itemName} id="cities-input">
         {sortedCitiesData.map((item) => (
           <option key={item.city} value={item.city}>
             {item.city}
           </option>
         ))}
-      </select>
+      </Field>
     </div>
   );
 };

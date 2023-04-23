@@ -1,27 +1,23 @@
-import { memo } from "react";
+import { memo, useRef } from "react";
 import "./Input.scss";
+import { ErrorMessage, Field } from "formik";
 
-const Input = ({ register, errors, itemName, itemClass, itemId, inputType, label, itemPlaceholder, pattern, patternMessage, isRequired }) => {
+const Input = ({ itemName, itemClass, itemId, inputType, label, itemPlaceholder, isRequired }) => {
+  const errorRef = useRef();
+  let errorClass = "";
+  // if (errorRef.current.value) {
+  //   errorClass = "border: 1ps solid red";
+  // }
   return (
     <div>
       <label htmlFor={itemId}>
         {label}
         {isRequired && <label htmlFor={itemId}>*</label>}
       </label>
-      <input
-        {...register(itemName, {
-          required: isRequired,
-          pattern: {
-            value: pattern,
-            message: patternMessage,
-          },
-        })}
-        type={inputType}
-        id={itemId}
-        className={`${itemClass} form-input`}
-        placeholder={itemPlaceholder}
-      />
-      <div className="error-message">{errors?.[itemName] && <p>{errors?.[itemName]?.message || "Ошибка"}</p>}</div>
+      <Field name={itemName} type={inputType} id={itemId} className={`${itemClass} form-input`} placeholder={itemPlaceholder} style={errorClass || null} />
+      <div ref={errorRef}>
+        <ErrorMessage name={itemName} component="div" className="error-message" />
+      </div>
     </div>
   );
 };
