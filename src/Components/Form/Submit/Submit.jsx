@@ -8,7 +8,7 @@ const Submit = () => {
 
   const clickHandler = (e) => {
     setDate(new Date());
-    console.log("Submited");
+    // console.log("Submited");
   };
 
   return (

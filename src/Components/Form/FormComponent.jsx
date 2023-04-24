@@ -1,17 +1,17 @@
-import "./Form.scss";
+import "./FormComponent.scss";
 import Input from "./Input/Input";
 import Cities from "./Cities/Cities";
 import Submit from "./Submit/Submit";
 import Separator from "../Separator/Separator";
 import { sortedCitiesData } from "../../utils/CitiesData";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 const FormComponent = () => {
   const [isCheckboxAreCheched, setIsCheckboxAreCheched] = useState(false);
   const emailCheckboxHandler = (e) => {
-    console.log(e.target.checked ? true : false);
+    // console.log(e.target.checked ? true : false);
     setIsCheckboxAreCheched(e.target.checked);
   };
 
@@ -48,9 +48,10 @@ const FormComponent = () => {
         }}
       >
         {({ values, errors }) => (
-          <Form>
-            {console.log(errors)}
-            <div className="div">{`Здравствуйте, ${values.firstName || "Человек"}`}</div>
+          <Form className="form-container-form">
+            <div className="greetings-container">
+              Здравствуйте, <div className="greetings-user">{`${values.firstName || "Человек"}`}</div>{" "}
+            </div>
             <Input itemName="firstName" itemClass="firstname" itemId="firstname" inputType="text" label="Имя" itemPlaceholder="Введите имя" isRequired={true} />
             <Input
               itemName="lastName"
@@ -61,7 +62,7 @@ const FormComponent = () => {
               itemPlaceholder="Введите фамилию"
               isRequired={true}
             />
-            <Cities itemName="cities" />
+            <Cities itemName="cities" sortedCitiesData={sortedCitiesData} />
             <Separator />
             <Input
               itemName="password"
@@ -70,7 +71,7 @@ const FormComponent = () => {
               inputType="password"
               label="Пароль"
               itemPlaceholder="Введите пароль"
-              isRequired={true}
+              isRequired={false}
             />
             <Input
               itemName="repeatPassword"
@@ -99,10 +100,16 @@ const FormComponent = () => {
               itemPlaceholder="Введите электронную почту"
               isRequired={isCheckboxAreCheched}
             />
-            <label htmlFor="email-checkbox">Я согласен</label>
-            <label>
-              <input type="checkbox" id="email-checkbox" onChange={emailCheckboxHandler} /> принимать актуальную информацию на email
-            </label>
+            <div className="email-checkbox-container">
+              <label htmlFor="email-checkbox" className="email-checkbox__outer">
+                Я согласен
+              </label>
+              <input className="email-checkbox__input" type="checkbox" id="email-checkbox" onChange={emailCheckboxHandler} />{" "}
+              <label htmlFor="email-checkbox" className="email-checkbox__inner">
+                принимать актуальную информацию на email
+              </label>
+            </div>
+
             <Submit />
           </Form>
         )}

@@ -9,14 +9,29 @@ const Input = ({ itemName, itemClass, itemId, inputType, label, itemPlaceholder,
   //   errorClass = "border: 1ps solid red";
   // }
   return (
-    <div>
-      <label htmlFor={itemId}>
-        {label}
-        {isRequired && <label htmlFor={itemId}>*</label>}
-      </label>
-      <Field name={itemName} type={inputType} id={itemId} className={`${itemClass} form-input`} placeholder={itemPlaceholder} style={errorClass || null} />
-      <div ref={errorRef}>
-        <ErrorMessage name={itemName} component="div" className="error-message" />
+    <div className="form-input-container">
+      <div className="form-input__label-container">
+        <label htmlFor={itemId} className="form-input__label">
+          {label}
+          {isRequired && (
+            <label htmlFor={itemId} className="form-input__label--required">
+              *
+            </label>
+          )}
+        </label>
+      </div>
+      <div className="form-input__field-error-container">
+        <Field
+          name={itemName}
+          type={inputType}
+          id={itemId}
+          className={`${itemClass} form-input-field`}
+          placeholder={itemPlaceholder}
+          style={errorClass || null}
+        />
+        <div ref={errorRef}>
+          <ErrorMessage name={itemName} component="div" className="error-message" />
+        </div>
       </div>
     </div>
   );

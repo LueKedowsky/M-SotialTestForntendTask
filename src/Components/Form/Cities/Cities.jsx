@@ -1,16 +1,15 @@
 import { Field } from "formik";
 import "./Cities.scss";
-import { sortedCitiesData } from "../../../utils/CitiesData";
 
-const Cities = ({ itemName }) => {
+const Cities = ({ itemName, sortedCitiesData }) => {
   return (
     <div className="cities-container">
       <label className="cities-label" htmlFor="cities-input">
         Ваш город
       </label>
-      <Field as="select" name={itemName} id="cities-input">
+      <Field as="select" name={itemName} id="cities-input" className="cities-input">
         {sortedCitiesData.map((item) => (
-          <option key={item.city} value={item.city}>
+          <option key={item.city} value={item.city} className="cities-input__option">
             {item.city}
           </option>
         ))}
